@@ -1,4 +1,8 @@
-- name: Build Docker image
-  run: |
-    docker build -t ${{ vars.DOCKER_USERNAME }}/my-app:latest ./flask-app
-    docker tag ${{ vars.DOCKER_USERNAME }}/my-app:latest ${{ vars.DOCKER_USERNAME }}/my-app:${SHA}
+# Example for Flask
+FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app.py .
+EXPOSE 5000
+CMD ["python", "app.py"]
